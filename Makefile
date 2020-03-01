@@ -6,7 +6,7 @@ CONTAINER_PORT = 8888
 
 ########################################
 CONTAINER_NAME = notebook
-CONTAINER_CODE_ROOT = /home/jovyan
+CONTAINER_CODE_ROOT = /home/jovyan/work
 CONTAINER_IMAGE = jupyter-dotnet
 
 .PHONY: start
