@@ -46,7 +46,8 @@ The [Jupyter User Guide on ReadTheDocs](http://jupyter-docker-stacks.readthedocs
 ## Resources
 
 - [Jupyter Documentation on ReadTheDocs](http://jupyter-docker-stacks.readthedocs.io/)
-- [Issue Tracker on GitHub](https://github.com/jupyter/docker-stacks)
+- [Jupyter Issue Tracker on GitHub](https://github.com/jupyter/docker-stacks/issues)
+- [Jupyter .NET Issue Tracker on GitHub](https://github.com/cberthold/jupyter-dotnet/issues)
 - [Jupyter Website](https://jupyter.org)
 - [Images on DockerHub](https://hub.docker.com/r/cberthold/jupyter-dotnet)
 
