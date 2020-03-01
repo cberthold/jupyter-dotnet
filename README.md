@@ -63,10 +63,10 @@ The [Jupyter User Guide on ReadTheDocs](http://jupyter-docker-stacks.readthedocs
 ## Example Screen shots
 
 ### Available Kernels to Launch
-![](https://raw.githubusercontent.com/cberthold/jupyter-dotnet/master/images/jupyter-launcher.png){:width="600px"}
+![](https://raw.githubusercontent.com/cberthold/jupyter-dotnet/master/images/jupyter-launcher.png)
 
 ### Running .NET in Jupyter Notebooks
-![](https://raw.githubusercontent.com/cberthold/jupyter-dotnet/master/images/jupyter-dotnet-dark.png){:width="600px"}
+![](https://raw.githubusercontent.com/cberthold/jupyter-dotnet/master/images/jupyter-dotnet-dark.png)
 
 
 ## Resources
