@@ -7,7 +7,20 @@ CONTAINER_PORT = 8888
 ########################################
 CONTAINER_NAME = notebook
 CONTAINER_CODE_ROOT = /home/jovyan/work
-CONTAINER_IMAGE = jupyter-dotnet
+CONTAINER_TAG = latest
+CONTAINER_IMAGE = cberthold/jupyter-dotnet
+CONTAINER_BUILD = jupyter-dotnet
+
+.PHONY: build
+build:
+	docker build -t ${CONTAINER_BUILD}:${CONTAINER_TAG} .
+
+.PHONY: change-container
+change-container:
+	$(eval CONTAINER_IMAGE := "$(CONTAINER_BUILD)")
+	
+.PHONY: start-build
+start-build: | change-container start
 
 .PHONY: start
 start:
@@ -17,7 +30,7 @@ start:
 	  --name=$(CONTAINER_NAME) \
 	  --rm \
 	  -v $(HOST_JUPYTER_NOTEBOOK_ROOT):$(CONTAINER_CODE_ROOT) \
-	  $(CONTAINER_IMAGE)
+	  $(CONTAINER_IMAGE):${CONTAINER_TAG}
 	
 .PHONY: stop
 stop:
@@ -30,7 +43,7 @@ clean:
 
 .PHONY: open
 open:
-	$(eval CMD_GET_TOKEN := $(shell docker exec -it notebook cat /home/jovyan/.local/share/jupyter/runtime/nbserver-6.json | jq --raw-output  ".token"))
+	$(eval CMD_GET_TOKEN := $(shell docker exec -it $(CONTAINER_NAME) cat /home/jovyan/.local/share/jupyter/runtime/nbserver-6.json | jq --raw-output  ".token"))
 	$(eval URL_JUPYTER_NB := "http://localhost:$(CONTAINER_PORT)/?token=$(CMD_GET_TOKEN)")
 	$(eval URL_JUPYTER_LAB := "http://localhost:$(CONTAINER_PORT)/lab?token=$(CMD_GET_TOKEN)")
 	open $(URL_JUPYTER_LAB)
