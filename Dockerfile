@@ -4,6 +4,9 @@ FROM $NOTEBOOK_BASE
 ARG NB_USER="jovyan"
 ARG NB_HOME=/home/${NB_USER}
 
+MAINTAINER "Chris Berthold (cberthold@technodotnet.com)"
+LABEL maintainer="Chris Berthold (cberthold@technodotnet.com)"
+
 # switch to root so we can install .net sdk
 USER root
 ENV \
