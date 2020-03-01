@@ -1,5 +1,9 @@
 ARG NOTEBOOK_BASE=jupyter/all-spark-notebook
 FROM $NOTEBOOK_BASE
+
+ARG NB_USER="jovyan"
+ARG NB_HOME=/home/${NB_USER}
+
 # switch to root so we can install .net sdk
 USER root
 ENV \
@@ -33,10 +37,11 @@ RUN dotnet tool install -g dotnet-try
 ENV PATH="${PATH}:${HOME}/.dotnet/tools"
 
 # Install the jupyter kernel for .NET
-RUN dotnet try jupyter install
+RUN dotnet try jupyter install \
+    && fix-permissions ${NB_HOME}
 
 # switch back to jupyter user
-USER "jovyan"
+USER ${NB_USER}
 
 # Configure container startup
 ENTRYPOINT ["tini", "-g", "--"]
