@@ -35,7 +35,9 @@ ENV PATH="${PATH}:${HOME}/.dotnet/tools"
 # Install the jupyter kernel for .NET
 RUN dotnet try jupyter install
 
-# switch back to jupyter notebooks user
+# switch back to jupyter user
 USER "jovyan"
-ENTRYPOINT [ "/usr/bin/tini", "--" ]
-CMD [ "/bin/bash" ]
+
+# Configure container startup
+ENTRYPOINT ["tini", "-g", "--"]
+CMD ["start-notebook.sh"]
