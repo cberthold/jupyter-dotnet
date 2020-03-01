@@ -60,6 +60,15 @@ make stop
 
 The [Jupyter User Guide on ReadTheDocs](http://jupyter-docker-stacks.readthedocs.io/) describes additional uses and features in detail.
 
+## Example Screen shots
+
+### Available Kernels to Launch
+![](https://raw.githubusercontent.com/cberthold/jupyter-dotnet/master/images/jupyter-launcher.png){:width="600px"}
+
+### Running .NET in Jupyter Notebooks
+![](https://raw.githubusercontent.com/cberthold/jupyter-dotnet/master/images/jupyter-dotnet-dark.png){:width="600px"}
+
+
 ## Resources
 
 - [Jupyter Documentation on ReadTheDocs](http://jupyter-docker-stacks.readthedocs.io/)
