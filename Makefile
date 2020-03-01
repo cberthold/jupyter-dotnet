@@ -7,10 +7,7 @@ CONTAINER_PORT = 8888
 ########################################
 CONTAINER_NAME = notebook
 CONTAINER_CODE_ROOT = /home/jovyan
-CONTAINER_IMAGE = jupyter/all-spark-notebook
-
-CMD_GET_CLASSIC_TOKEN = $(shell docker logs --tail 3 $(CONTAINER_NAME) 2>&1 | grep -o 'http://127.0.0.1:$(CONTAINER_PORT)/?token=.*')
-CMD_GET_LAB_TOKEN = $(shell echo $(CMD_GET_CLASSIC_TOKEN) | sed 's/\/\?/\/lab\?/')
+CONTAINER_IMAGE = jupyter-dotnet
 
 .PHONY: start
 start:
@@ -21,9 +18,7 @@ start:
 	  --rm \
 	  -v $(HOST_JUPYTER_NOTEBOOK_ROOT):$(CONTAINER_CODE_ROOT) \
 	  $(CONTAINER_IMAGE)
-	@echo "==> wait for server up ..." && sleep 3
-	open $(CMD_GET_CLASSIC_TOKEN)
-	open $(CMD_GET_LAB_TOKEN)
+	
 .PHONY: stop
 stop:
 	docker stop $(CONTAINER_NAME)
@@ -33,6 +28,12 @@ stop:
 clean:
 	docker rm $(CONTAINER_NAME)
 
-
+.PHONY: open
+open:
+	$(eval CMD_GET_TOKEN := $(shell docker exec -it notebook cat /home/jovyan/.local/share/jupyter/runtime/nbserver-6.json | jq --raw-output  ".token"))
+	$(eval URL_JUPYTER_NB := "http://localhost:$(CONTAINER_PORT)/?token=$(CMD_GET_TOKEN)")
+	$(eval URL_JUPYTER_LAB := "http://localhost:$(CONTAINER_PORT)/lab?token=$(CMD_GET_TOKEN)")
+	open $(URL_JUPYTER_LAB)
+	open $(URL_JUPYTER_NB)
 .PHONY: restart
 restart: | stop clean start
